@@ -22,10 +22,12 @@ repositories {
 dependencies {
     // Fabric
     minecraft(libs.minecraft)
-    implementation(libs.fabric.loader)
+    mappings(variantOf(libs.yarn) { classifier("v2") })
+    modImplementation(libs.fabric.loader)
 
     // Meteor
-    implementation(libs.meteor.client)
+    modCompileOnly(libs.meteor.client) { isTransitive = false }
+    compileOnly("meteordevelopment:orbit:0.2.4")
 }
 
 java {
@@ -37,10 +39,20 @@ java {
 fun toMinecraftCompat(version: String): String {
     val match = Regex("""^(\d{2})\.([1-9]\d*)(?:\.([1-9]\d*))?$""")
         .matchEntire(version)
-        ?: error("Invalid Minecraft version format: $version. Expected YY.D or YY.D.H")
 
-    val (year, drop, _) = match.destructured
-    return "~$year.$drop"
+    if (match != null) {
+        val (year, drop, _) = match.destructured
+        return "~$year.$drop"
+    }
+
+    val oldMatch = Regex("""^(\d+)\.(\d+)(?:\.(\d+))?$""")
+        .matchEntire(version)
+    if (oldMatch != null) {
+        val (major, minor, _) = oldMatch.destructured
+        return "~$major.$minor"
+    }
+
+    error("Invalid Minecraft version format: $version. Expected YY.D.H or M.m.p")
 }
 
 tasks {

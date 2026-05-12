@@ -1,24 +1,24 @@
 {
   "schemaVersion": 1,
-  "id": "addon-template",
+  "id": "mace-power-addon",
   "version": "${version}",
-  "name": "Addon Template",
-  "description": "An addon template for Meteor Client addons.",
+  "name": "Mace Power Addon",
+  "description": "A powerful mace combat module for Meteor Client.",
   "authors": [
-    "seasnail"
+    "open-code"
   ],
   "contact": {
-    "sources": "https://github.com/MeteorDevelopment/meteor-addon-template"
+    "sources": "https://github.com/open-code/mace-power-addon"
   },
   "icon": "assets/template/icon.png",
   "environment": "client",
   "entrypoints": {
     "meteor": [
-      "com.example.addon.AddonTemplate"
+      "com.macepower.addon.MacePowerAddon"
     ]
   },
   "mixins": [
-    "addon-template.mixins.json"
+    "mace-power-addon.mixins.json"
   ],
   "custom": {
     "meteor-client:color": "225,25,25",
